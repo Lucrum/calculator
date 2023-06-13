@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.display {
+    background-color: black;
+    color: lime;
+    height: 100px;
+}
+
+.calculator-container {
+    margin: 10px 30%;
+    padding: 20px;
+    background-color: #a3a3a3;
+    border-radius: 1rem;
+}
+
+.row {
+    display: flex;
+}
+
+.row > button {
+    height: 50px;
+    width: 50px;
+    flex: 1 1 auto;
+}
+
+.row > .wide-button {
+    width: 100px;
+    flex: 2 1 auto;
+}
