@@ -55,6 +55,7 @@ function addDecimal(event) {
     } else if (displayStr % 1 == 0) {
         displayStr += event.target.dataset.number;
     }
+    weakDisplay = false;
     updateDisplay();
 };
 

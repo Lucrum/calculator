@@ -23,7 +23,7 @@ body {
 }
 
 .calculator-container {
-    width: 20vw;
+    margin: auto;
     padding: 20px;
     background-color: #a3a3a3;
     border-radius: 1rem;
@@ -36,10 +36,10 @@ body {
 .row > button {
     height: 50px;
     width: 50px;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
 }
 
 .row > .wide-button {
     width: 100px;
-    flex: 2 1 auto;
+    flex: 2 0 auto;
 }
