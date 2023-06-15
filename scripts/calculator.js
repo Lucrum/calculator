@@ -40,7 +40,6 @@ decimalButton.addEventListener('click', addDecimal);
 function addNumber(event) {
 
     if (displayStr === '0' || weakDisplay) {
-        console.log("hehe")
         displayStr = event.target.dataset.number;
         weakDisplay = false;
     } else {
@@ -64,14 +63,14 @@ function updateDisplay() {
 };
 
 function clear() {
-    console.log("shallowclear");
+    // console.log("shallowclear");
     displayStr = '0';
     right = null;
     updateDisplay();
 };
 
 function allClear() {
-    console.log("full clear");
+    // console.log("full clear");
     displayStr = '0';
     operator = null;
     left = null;
@@ -115,7 +114,7 @@ function addOperator(event) {
 function resolve() {
 
     if (repeatable) {
-        console.log("drawing from last op");
+        // console.log("drawing from last op");
         left = operate(left, right, operator);
         displayStr = left;
     } else if (left && operator) {
@@ -127,7 +126,7 @@ function resolve() {
 }
 
 function calculateFromDisplay() {
-    console.log("drawing from display");
+    // console.log("drawing from display");
     right = +displayStr;
     left = operate(left, +displayStr, operator);
     displayStr = left;
