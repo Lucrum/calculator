@@ -13,7 +13,7 @@ stage 2 when all fields are fulfilled
 let stage = 0;
 
 let displayStr = '0';
-let weakDisplay = true;
+let weakDisplay = false;
 let repeatable = false;
 
 const buttonList = document.querySelectorAll('#number');
@@ -21,6 +21,7 @@ const operatorList = document.querySelectorAll('#operation');
 const equalsButton = document.querySelector('#equal');
 const display = document.querySelector('.display');
 const clearButtons = document.querySelectorAll('#clear');
+const decimalButton = document.querySelector('#decimal');
 
 
 updateDisplay();
@@ -34,16 +35,27 @@ updateDisplay();
     button.addEventListener('click', allClear) :
     button.addEventListener('click', clear));
 equalsButton.addEventListener('click', resolve);
+decimalButton.addEventListener('click', addDecimal);
 
 function addNumber(event) {
 
-    if (displayStr == '0' || weakDisplay) {
+    if (displayStr === '0' || weakDisplay) {
+        console.log("hehe")
         displayStr = event.target.dataset.number;
         weakDisplay = false;
     } else {
         displayStr += event.target.dataset.number;
     }
     repeatable = false;
+    updateDisplay();
+};
+
+function addDecimal(event) {
+    if (displayStr == '0') {
+        displayStr = '0.';
+    } else if (displayStr % 1 == 0) {
+        displayStr += event.target.dataset.number;
+    }
     updateDisplay();
 };
 
@@ -93,7 +105,6 @@ function addOperator(event) {
         case 1:
             right = +displayStr;
             calculateFromDisplay();
-            weakDisplay = true;
             break;
     }
 
@@ -121,4 +132,5 @@ function calculateFromDisplay() {
     left = operate(left, +displayStr, operator);
     displayStr = left;
     repeatable = true;
+    weakDisplay = true;
 }
