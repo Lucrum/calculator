@@ -7,7 +7,6 @@ let right;
 /*
 stage 0 when waiting for a left number (switch on operator)
 stage 1 when waiting for a right number
-stage 2 when all fields are fulfilled
 */
 
 let stage = 0;
@@ -19,17 +18,12 @@ let repeatable = false;
 // init buttons and event listeners
 const buttonList = document.querySelectorAll('#num-op');
 const display = document.querySelector('.display');
-const clearButtons = document.querySelectorAll('#clear');
 
 
 [...buttonList].forEach((button) => 
     button.addEventListener('click', (event) => {
         handleInput(event.target.dataset.val);
     }));
-[...clearButtons].forEach((button) =>
-    button.dataset.clearType === 'all' ? 
-    button.addEventListener('click', allClear) :
-    button.addEventListener('click', shallowClear));
 
 window.addEventListener('keydown', (event) => {
     handleInput(event.key);
