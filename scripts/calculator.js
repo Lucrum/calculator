@@ -43,7 +43,7 @@ function handleInput(key) {
         shallowClear();
     } else if (key === '.') {
         addDecimal();
-    } else if (key === "Enter") {
+    } else if (key === "Enter" || key === "=") {
         resolve();
     }
 }
