@@ -52,7 +52,7 @@ function addNumber(event) {
 function addDecimal(event) {
     if (displayStr == '0') {
         displayStr = '0.';
-    } else if (displayStr % 1 == 0) {
+    } else if (!displayStr.includes('.')) {
         displayStr += event.target.dataset.number;
     }
     weakDisplay = false;
