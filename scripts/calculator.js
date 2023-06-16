@@ -16,44 +16,63 @@ let displayStr = '0';
 let weakDisplay = false;
 let repeatable = false;
 
-const buttonList = document.querySelectorAll('#number');
-const operatorList = document.querySelectorAll('#operation');
-const equalsButton = document.querySelector('#equal');
+// init buttons and event listeners
+const buttonList = document.querySelectorAll('#num-op');
 const display = document.querySelector('.display');
 const clearButtons = document.querySelectorAll('#clear');
-const decimalButton = document.querySelector('#decimal');
 
-
-updateDisplay();
 
 [...buttonList].forEach((button) => 
-    button.addEventListener('click', addNumber));
-[...operatorList].forEach((button) => 
-    button.addEventListener('click', addOperator));
+    button.addEventListener('click', (event) => {
+        handleInput(event.target.dataset.val);
+    }));
 [...clearButtons].forEach((button) =>
     button.dataset.clearType === 'all' ? 
     button.addEventListener('click', allClear) :
-    button.addEventListener('click', clear));
-equalsButton.addEventListener('click', resolve);
-decimalButton.addEventListener('click', addDecimal);
+    button.addEventListener('click', shallowClear));
 
-function addNumber(event) {
+window.addEventListener('keydown', (event) => {
+    handleInput(event.key);
+});
+
+function handleInput(key) {
+    // console.log("pressed", key);
+    const numbers = ['1','2','3','4','5','6','7','8','9','0'];
+    const operations = ['/', '+', '-', '*', '-/+'];
+    if (numbers.includes(key)) {
+        addNumber(key);
+    } else if (operations.includes(key)) {
+        addOperator(key);
+    } else if (key === "Escape") {
+        allClear();
+    } else if (key === "Backspace") {
+        shallowClear();
+    } else if (key === '.') {
+        addDecimal();
+    } else if (key === "Enter") {
+        resolve();
+    }
+}
+
+updateDisplay();
+
+function addNumber(num) {
 
     if (displayStr === '0' || weakDisplay) {
-        displayStr = event.target.dataset.number;
+        displayStr = num;
         weakDisplay = false;
     } else {
-        displayStr += event.target.dataset.number;
+        displayStr += num;
     }
     repeatable = false;
     updateDisplay();
 };
 
-function addDecimal(event) {
+function addDecimal() {
     if (displayStr == '0') {
         displayStr = '0.';
     } else if (!displayStr.includes('.')) {
-        displayStr += event.target.dataset.number;
+        displayStr += '.';
     }
     weakDisplay = false;
     updateDisplay();
@@ -63,7 +82,7 @@ function updateDisplay() {
     display.textContent = displayStr;
 };
 
-function clear() {
+function shallowClear() {
     // console.log("shallowclear");
     displayStr = '0';
     right = null;
@@ -80,12 +99,11 @@ function allClear() {
     updateDisplay();
 }
 
-function addOperator(event) {
+function addOperator(newOperator) {
     // if there is no left num, store it
     // if there is a left num, perform operation on that with curr num
     // then store curr num as left
-    let newOperator = event.target.dataset.operator;
-    console.log(left, right, operator, newOperator);
+    // console.log(left, right, operator, newOperator);
     repeatable = false;
     if (newOperator === '-/+') {
         // negation operator, just negate the display
@@ -94,8 +112,6 @@ function addOperator(event) {
         updateDisplay();
         return;
     }
-
-    console.log(stage);
     switch (stage) {
         case 0:
             left = +displayStr;

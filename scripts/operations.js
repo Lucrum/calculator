@@ -1,5 +1,5 @@
 export function operate(a, b, operator) {
-    console.log(a, operator, b);
+    // console.log(a, operator, b);
     switch(operator) {
         case '+':
             return add(a, b);
